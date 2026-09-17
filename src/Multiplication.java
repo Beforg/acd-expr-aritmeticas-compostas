@@ -1,25 +1,21 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Multiplication extends Expression{
     private ArrayList<Expression> factors;
 
-    public Multiplication() {
-        this.factors = new ArrayList<>();
-    }
-
-    public void addFactor(Expression factor) {
-        this.factors.add(factor);
+    public Multiplication(Expression... exprs) {
+        this.factors = new ArrayList<>(Arrays.asList(exprs));
     }
 
     @Override
     public double evaluate() {
-        if (factors.isEmpty()) {
-            return 1;
+        if (factors.isEmpty()) return 0;
+
+        double total = 1;
+        for (Expression e : factors) {
+            total *= e.evaluate();
         }
-        double product = 1;
-        for (Expression factor : factors) {
-            product *= factor.evaluate();
-        }
-        return product;
+        return total;
     }
 }
